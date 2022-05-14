@@ -33,6 +33,11 @@ override CXXFLAGS += -O2
 else ifneq (,$(config))
 $(warning Unknown configuration "$(config)")
 endif
+#
+# Additionally, this makefile is customizable with the following
+# settings:
+#
+#      ISHIKO_CPP_BOOST_ROOT  Path to the Boost installation
 
 # Use "make RANLIB=''" for platforms without ranlib.
 RANLIB ?= ranlib
@@ -54,6 +59,16 @@ _builddir := $(if $(findstring $(abspath $(builddir)),$(builddir)),,../../)$(bui
 _builddir_error := $(shell mkdir -p $(_builddir) 2>&1)
 $(if $(_builddir_error),$(error Failed to create build directory: $(_builddir_error)))
 endif
+
+# ------------
+# Configurable settings:
+# 
+
+# Path to the Boost installation
+ISHIKO_CPP_BOOST_ROOT ?= $(ISHIKO_CPP_THIRD_PARTY_BOOST)
+
+# ------------
+
 all: ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),IshikoJSON-d,IshikoJSON).a
 
 ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),IshikoJSON-d,IshikoJSON).a: $(_builddir)IshikoJSON_JSONPushParser.o
@@ -61,7 +76,7 @@ all: ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),IshikoJSON-d,I
 	$(RANLIB) $@
 
 $(_builddir)IshikoJSON_JSONPushParser.o: ../../src/JSONPushParser.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I../../include/Ishiko/JSON -std=c++11 ../../src/JSONPushParser.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BOOST_ROOT)/include -I../../include/Ishiko/JSON -std=c++11 ../../src/JSONPushParser.cpp
 
 clean:
 	rm -f $(_builddir)*.o

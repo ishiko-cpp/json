@@ -23,11 +23,13 @@ program IshikoJSONTests : IshikoJSON, IshikoTestFrameworkCore
     headers
     {
         ../../src/JSONPushParserTests.hpp
+        ../../src/helpers/JSONPushParserTestCallbacks.hpp
     }
 
     sources
     {
         ../../src/JSONPushParserTests.cpp
         ../../src/main.cpp
+        ../../src/helpers/JSONPushParserTestCallbacks.cpp
     }
 }

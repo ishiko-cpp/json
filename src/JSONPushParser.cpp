@@ -12,3 +12,8 @@ JSONPushParser::JSONPushParser(Callbacks& callbacks)
     : m_callbacks(callbacks)
 {
 }
+
+bool JSONPushParser::onData(boost::string_view data)
+{
+    return true;
+}
