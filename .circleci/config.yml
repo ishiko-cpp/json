@@ -12,6 +12,12 @@ jobs:
       - run:
           name: Build
           command: cd /projects/ishiko/cpp/json/build/gnumake && make
+      - run:
+          name: Test build
+          command: cd /projects/ishiko/cpp/json/tests/build/gnumake && make
+      - run:
+          name: Run the tests
+          command: cd /projects/ishiko/cpp/json/tests/build/gnumake && ./IshikoJSONTests
 workflows:
   version: 2
   continuous_build:
