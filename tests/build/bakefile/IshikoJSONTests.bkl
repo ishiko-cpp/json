@@ -16,7 +16,7 @@ program IshikoJSONTests : IshikoTestFrameworkCore
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
-        libs += IshikoTestFrameworkCore;
+        libs += IshikoTestFrameworkCore boost_filesystem;
     }
 
     sources
