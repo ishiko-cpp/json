@@ -17,7 +17,8 @@ JSONPushParserTests::JSONPushParserTests(const TestNumber& number, const TestCon
 
 void JSONPushParserTests::ConstructorTest1(Test& test)
 {
-    JSONPushParser parser;
+    JSONPushParser::Callbacks callbacks;
+    JSONPushParser parser(callbacks);
 
     ISHIKO_TEST_PASS();
 }

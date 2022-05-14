@@ -5,6 +5,7 @@
 */
 
 #include "JSONPushParserTests.hpp"
+#include "Ishiko/JSON/linkoptions.hpp"
 #include <Ishiko/TestFramework/Core.hpp>
 
 using namespace Ishiko;

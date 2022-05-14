@@ -5,3 +5,10 @@
 */
 
 #include "JSONPushParser.hpp"
+
+using namespace Ishiko;
+
+JSONPushParser::JSONPushParser(Callbacks& callbacks)
+    : m_callbacks(callbacks)
+{
+}

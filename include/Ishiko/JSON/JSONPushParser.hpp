@@ -12,6 +12,17 @@ namespace Ishiko
 
 class JSONPushParser
 {
+public:
+    class Callbacks
+    {
+    public:
+        virtual ~Callbacks() = default;
+    };
+
+    JSONPushParser(Callbacks& callbacks);
+
+private:
+    Callbacks& m_callbacks;
 };
 
 }
