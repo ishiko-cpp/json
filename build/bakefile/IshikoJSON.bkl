@@ -1,0 +1,41 @@
+toolsets = gnu vs2019 vs2017 vs2015 vs2013;
+
+gnu.makefile = ../gnumake/GNUmakefile;
+vs2019.solutionfile = ../vc16/IshikoJSON.sln;
+vs2017.solutionfile = ../vc15/IshikoJSON.sln;
+vs2015.solutionfile = ../vc14/IshikoJSON.sln;
+vs2013.solutionfile = ../vc12/IshikoJSON.sln;
+
+library IshikoJSON
+{
+    archs = x86 x86_64;
+
+    includedirs += ../../include/Ishiko/JSON;
+
+    if ($(toolset) == gnu)
+    {
+        cxx-compiler-options = "-std=c++11";
+        outputdir = ../../lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        outputdir = ../../lib/$(arch);
+    }
+
+    if ($(config) == Debug)
+    {
+        basename = IshikoJSON-d;
+    }
+
+    headers
+    {
+        ../../include/Ishiko/JSON.hpp
+        ../../include/Ishiko/JSON/JSONPushParser.hpp
+    }
+
+    sources
+    {
+        ../../src/JSONPushParser.cpp
+    }
+}
