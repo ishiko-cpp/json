@@ -1,0 +1,33 @@
+ishikopath = envvar("ISHIKO_CPP");
+import $(ishikopath)/json/include/Ishiko/JSON.bkl;
+import $(ishikopath)/test-framework/include/Ishiko/TestFramework/Core.bkl;
+
+toolsets = gnu vs2019 vs2017 vs2015 vs2013;
+
+gnu.makefile = ../gnumake/GNUmakefile;
+vs2019.solutionfile = ../vc16/IshikoJSONTests.sln;
+vs2017.solutionfile = ../vc15/IshikoJSONTests.sln;
+vs2015.solutionfile = ../vc14/IshikoJSONTests.sln;
+vs2013.solutionfile = ../vc12/IshikoJSONTests.sln;
+
+program IshikoJSONTests : IshikoJSON, IshikoTestFrameworkCore
+{
+    archs = x86 x86_64;
+
+    if ($(toolset) == gnu)
+    {
+        cxx-compiler-options = "-std=c++11";
+        libs += IshikoTestFrameworkCore IshikoProcess boost_filesystem;
+    }
+
+    headers
+    {
+        ../../src/JSONPushParserTests.hpp
+    }
+
+    sources
+    {
+        ../../src/JSONPushParserTests.cpp
+        ../../src/main.cpp
+    }
+}

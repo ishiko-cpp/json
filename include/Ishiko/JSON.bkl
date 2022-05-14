@@ -1,0 +1,20 @@
+setting ISHIKO_CPP_JSON_ROOT
+{
+    help = "Path to the Ishiko JSON installation";
+    default = '$(ISHIKO_CPP)/json';
+}
+
+template IshikoJSON
+{
+    includedirs += $(ISHIKO_CPP_JSON_ROOT)/include;
+
+    if ($(toolset) == gnu)
+    {
+        libdirs += $(ISHIKO_CPP_JSON_ROOT)/lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        libdirs += $(ISHIKO_CPP_JSON_ROOT)/lib/$(arch);
+    }
+}
