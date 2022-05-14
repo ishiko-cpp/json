@@ -7,4 +7,13 @@
 #ifndef _ISHIKO_CPP_JSON_JSONPUSHPARSER_HPP_
 #define _ISHIKO_CPP_JSON_JSONPUSHPARSER_HPP_
 
+namespace Ishiko
+{
+
+class JSONPushParser
+{
+};
+
+}
+
 #endif
