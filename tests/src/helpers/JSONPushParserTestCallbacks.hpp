@@ -9,20 +9,29 @@
 
 #include "Ishiko/JSON/JSONPushParser.hpp"
 #include <string>
+#include <utility>
 #include <vector>
 
 class JSONPushParserTestCallbacks : public Ishiko::JSONPushParser::Callbacks
 {
 public:
+    enum EventType
+    {
+        nullValue,
+        trueValue,
+        falseValue,
+        whitespace
+    };
+
     void onTrue(boost::string_view data) override;
     void onFalse(boost::string_view data) override;
     void onNull(boost::string_view data) override;
     void onWhitespace(boost::string_view data) override;
 
-    const std::vector<std::string>& events() const;
+    const std::vector<std::pair<EventType, std::string>>& events() const;
 
 private:
-    std::vector<std::string> m_events;
+    std::vector<std::pair<EventType, std::string>> m_events;
 };
 
 #endif

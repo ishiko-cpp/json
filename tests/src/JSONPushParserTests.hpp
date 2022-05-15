@@ -16,9 +16,18 @@ public:
 
 private:
     static void ConstructorTest1(Ishiko::Test& test);
-    static void OnDataTest1(Ishiko::Test& test);
-    static void OnDataTest2(Ishiko::Test& test);
-    static void OnDataTest3(Ishiko::Test& test);
+    static void OnDataNullTest1(Ishiko::Test& test);
+    static void OnDataNullTest2(Ishiko::Test& test);
+    static void OnDataNullTest3(Ishiko::Test& test);
+    static void OnDataNullTest4(Ishiko::Test& test);
+    static void OnDataTrueTest1(Ishiko::Test& test);
+    static void OnDataTrueTest2(Ishiko::Test& test);
+    static void OnDataTrueTest3(Ishiko::Test& test);
+    static void OnDataTrueTest4(Ishiko::Test& test);
+    static void OnDataFalseTest1(Ishiko::Test& test);
+    static void OnDataFalseTest2(Ishiko::Test& test);
+    static void OnDataFalseTest3(Ishiko::Test& test);
+    static void OnDataFalseTest4(Ishiko::Test& test);
 };
 
 #endif
