@@ -28,7 +28,7 @@ void JSONPushParserTests::ConstructorTest1(Test& test)
 
 void JSONPushParserTests::OnDataTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("null.json");
+    boost::filesystem::path inputPath = test.context().getTestDataPath("null1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
