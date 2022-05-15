@@ -8,5 +8,6 @@
 #define _ISHIKO_CPP_JSON_HPP_
 
 #include "JSON/JSONPushParser.hpp"
+#include "JSON/linkoptions.hpp"
 
 #endif

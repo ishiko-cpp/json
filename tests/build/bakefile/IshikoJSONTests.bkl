@@ -17,17 +17,19 @@ program IshikoJSONTests : IshikoJSON, IshikoTestFrameworkCore
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
-        libs += IshikoTestFrameworkCore IshikoProcess boost_filesystem;
+        libs += IshikoTestFrameworkCore IshikoJSON IshikoFileSystem IshikoProcess IshikoText IshikoErrors boost_filesystem;
     }
 
     headers
     {
         ../../src/JSONPushParserTests.hpp
+        ../../src/helpers/JSONPushParserTestCallbacks.hpp
     }
 
     sources
     {
         ../../src/JSONPushParserTests.cpp
         ../../src/main.cpp
+        ../../src/helpers/JSONPushParserTestCallbacks.cpp
     }
 }

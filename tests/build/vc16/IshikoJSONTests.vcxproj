@@ -154,9 +154,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\JSONPushParserTests.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\helpers\JSONPushParserTestCallbacks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\JSONPushParserTests.hpp" />
+    <ClInclude Include="..\..\src\helpers\JSONPushParserTestCallbacks.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
