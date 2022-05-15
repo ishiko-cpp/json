@@ -218,6 +218,10 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                  break;
             }
             ++current;
+            if (current == end)
+            {
+                m_fragmentedData.append(previous, (current - previous));
+            }
             break;
 
         case ParsingMode::elementWs2:
