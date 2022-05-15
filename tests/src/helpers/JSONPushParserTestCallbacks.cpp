@@ -16,10 +16,15 @@ void JSONPushParserTestCallbacks::onFalse(boost::string_view data)
 
 void JSONPushParserTestCallbacks::onNull(boost::string_view data)
 {
-    m_null = data.to_string();
+    m_events.push_back(data.to_string());
 }
 
-const std::string& JSONPushParserTestCallbacks::null() const
+void JSONPushParserTestCallbacks::onWhitespace(boost::string_view data)
 {
-    return m_null;
+    m_events.push_back(data.to_string());
+}
+
+const std::vector<std::string>& JSONPushParserTestCallbacks::events() const
+{
+    return m_events;
 }

@@ -8,6 +8,8 @@
 #define _ISHIKO_CPP_JSON_TESTS_HELPERS_JSONPUSHPARSERTESTCALLBACKS_HPP_
 
 #include "Ishiko/JSON/JSONPushParser.hpp"
+#include <string>
+#include <vector>
 
 class JSONPushParserTestCallbacks : public Ishiko::JSONPushParser::Callbacks
 {
@@ -15,11 +17,12 @@ public:
     void onTrue(boost::string_view data) override;
     void onFalse(boost::string_view data) override;
     void onNull(boost::string_view data) override;
+    void onWhitespace(boost::string_view data) override;
 
-    const std::string& null() const;
+    const std::vector<std::string>& events() const;
 
 private:
-    std::string m_null;
+    std::vector<std::string> m_events;
 };
 
 #endif

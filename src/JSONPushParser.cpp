@@ -88,10 +88,12 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             break;
 
         case ParsingMode::elementWs1:
+            previous = current;
             m_parsingModeStack.push_back(ParsingMode::ws);
             break;
 
         case ParsingMode::elementValue:
+            previous = current;
             switch (*current)
             {
             case 'f':
@@ -114,13 +116,14 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             break;
 
         case ParsingMode::elementWs2:
+            previous = current;
             m_parsingModeStack.push_back(ParsingMode::ws);
             break;
 
         case ParsingMode::ws:
             while (current < end)
             {
-                if ((*current != '\t') && (*current != '\r') || (*current != '\n') || (*current != ' '))
+                if ((*current != '\t') && (*current != '\r') && (*current != '\n') && (*current != ' '))
                 {
                     // TODO
                     if /* (m_fragmentedData1.empty()) */ ((current - previous) > 0)
@@ -208,10 +211,12 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ParsingMode::elementValue:
-                // TODO
+                previous = current;
+                // TODO: is this an error too?
                 break;
 
             case ParsingMode::elementWs2:
+                previous = current;
                 m_parsingModeStack.push_back(ParsingMode::ws);
                 break;
 
