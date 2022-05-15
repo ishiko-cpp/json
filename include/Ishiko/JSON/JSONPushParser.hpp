@@ -21,6 +21,7 @@ public:
     public:
         virtual ~Callbacks() = default;
 
+        virtual void onString(boost::string_view data);
         virtual void onTrue(boost::string_view data);
         virtual void onFalse(boost::string_view data);
         virtual void onNull(boost::string_view data);
@@ -35,6 +36,7 @@ private:
     enum class ParsingMode
     {
         json,
+        valueString,
         valueTrue,
         valueFalse,
         valueNull,

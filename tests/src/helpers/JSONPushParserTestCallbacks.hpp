@@ -20,9 +20,11 @@ public:
         nullValue,
         trueValue,
         falseValue,
+        stringValue,
         whitespace
     };
 
+    void onString(boost::string_view data) override;
     void onTrue(boost::string_view data) override;
     void onFalse(boost::string_view data) override;
     void onNull(boost::string_view data) override;
