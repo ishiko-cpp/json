@@ -57,25 +57,24 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             {
                 if (!ASCII::IsAlpha(*current))
                 {
-                    // TODO
-                    if /* (m_fragmentedData1.empty()) */ ((current - previous) > 0)
+                    if (m_fragmentedData.empty() && ((current - previous) > 0))
                     {
                         // TODO: verify the text is "null"
                         m_callbacks.onNull(boost::string_view(previous, (current - previous)));
                     }
-                    /*else
+                    else
                     {
-                        m_fragmentedData1.append(data.data(), current - data.data());
-                        m_callbacks.onMethod(m_fragmentedData1);
-                        m_fragmentedData1.clear();
-                    }*/
+                        m_fragmentedData.append(data.data(), current - data.data());
+                        m_callbacks.onNull(m_fragmentedData);
+                        m_fragmentedData.clear();
+                    }
                     break;
                 }
                 ++current;
             }
             if (current == end)
             {
-                //m_fragmentedData1.append(previous, (current - previous));
+                m_fragmentedData.append(previous, (current - previous));
             }
             else
             {
@@ -187,18 +186,8 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ParsingMode::valueNull:
-                // TODO
-                if /* (m_fragmentedData1.empty()) */ ((current - previous) > 0)
-                {
-                    // TODO: verify the text is "null"
-                    m_callbacks.onNull(boost::string_view(previous, (current - previous)));
-                }
-                /*else
-                {
-                    m_fragmentedData1.append(data.data(), current - data.data());
-                    m_callbacks.onMethod(m_fragmentedData1);
-                    m_fragmentedData1.clear();
-                }*/
+                m_callbacks.onNull(m_fragmentedData);
+                m_fragmentedData.clear();
                 m_parsingModeStack.pop_back();
                 if (m_parsingModeStack.back() == ParsingMode::elementValue)
                 {

@@ -45,6 +45,7 @@ private:
     };
 
     std::vector<ParsingMode> m_parsingModeStack;
+    std::string m_fragmentedData;
     Callbacks& m_callbacks;
 };
 
