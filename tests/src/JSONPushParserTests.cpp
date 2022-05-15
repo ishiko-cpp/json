@@ -57,6 +57,6 @@ void JSONPushParserTests::OnDataTest2(Test& test)
     ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 3);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0], " ");
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1], "null");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[2], "  \r\n");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[2], "  \n");
     ISHIKO_TEST_PASS();
 }
