@@ -11,6 +11,15 @@
 
 class JSONPushParserTestCallbacks : public Ishiko::JSONPushParser::Callbacks
 {
+public:
+    void onTrue(boost::string_view data) override;
+    void onFalse(boost::string_view data) override;
+    void onNull(boost::string_view data) override;
+
+    const std::string& null() const;
+
+private:
+    std::string m_null;
 };
 
 #endif

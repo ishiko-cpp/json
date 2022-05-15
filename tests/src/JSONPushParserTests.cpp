@@ -5,6 +5,7 @@
 */
 
 #include "JSONPushParserTests.hpp"
+#include "helpers/JSONPushParserTestCallbacks.hpp"
 #include "Ishiko/JSON/JSONPushParser.hpp"
 #include <Ishiko/FileSystem.hpp>
 
@@ -27,11 +28,15 @@ void JSONPushParserTests::ConstructorTest1(Test& test)
 
 void JSONPushParserTests::OnDataTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("JSONPushParserTests_OnDataTest1.json");
+    boost::filesystem::path inputPath = test.context().getTestDataPath("null.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
-    JSONPushParser::Callbacks callbacks;
+    JSONPushParserTestCallbacks callbacks;
     JSONPushParser parser(callbacks);
 
-    parser.onData(jsonData);
+    bool complete = parser.onData(jsonData, true);
+
+    ISHIKO_TEST_FAIL_IF_NOT(complete);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.null(), "null");
+    ISHIKO_TEST_PASS();
 }
