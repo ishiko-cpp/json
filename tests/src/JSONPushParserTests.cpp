@@ -19,6 +19,7 @@ JSONPushParserTests::JSONPushParserTests(const TestNumber& number, const TestCon
     append<HeapAllocationErrorsTest>("onData test 1", OnDataTest1);
     append<HeapAllocationErrorsTest>("onData test 2", OnDataTest2);
     append<HeapAllocationErrorsTest>("onData test 3", OnDataTest3);
+    append<HeapAllocationErrorsTest>("onData test 4", OnDataTest4);
 }
 
 void JSONPushParserTests::ConstructorTest1(Test& test)
@@ -41,7 +42,8 @@ void JSONPushParserTests::OnDataTest1(Test& test)
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
     ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 1);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0], "null");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::nullValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].second, "null");
     ISHIKO_TEST_PASS();
 }
 
@@ -57,9 +59,12 @@ void JSONPushParserTests::OnDataTest2(Test& test)
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
     ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 3);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0], " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1], "null");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[2], std::string("  ") + ASCII::LineEnding);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::nullValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].second, "null");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[2].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[2].second, std::string("  ") + ASCII::LineEnding);
     ISHIKO_TEST_PASS();
 }
 
@@ -80,6 +85,29 @@ void JSONPushParserTests::OnDataTest3(Test& test)
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
     ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 1);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0], "null");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::nullValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].second, "null");
+    ISHIKO_TEST_PASS();
+}
+
+void JSONPushParserTests::OnDataTest4(Test& test)
+{
+    boost::filesystem::path inputPath = test.context().getTestDataPath("null1.json");
+    std::string jsonData = FileSystem::ReadFile(inputPath);
+
+    JSONPushParserTestCallbacks callbacks;
+    JSONPushParser parser(callbacks);
+
+    bool complete = parser.onData(jsonData.substr(0, 2), false);
+
+    ISHIKO_TEST_FAIL_IF(complete);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events().size(), 0);
+
+    complete = parser.onData(jsonData.substr(2, 2), true);
+
+    ISHIKO_TEST_FAIL_IF_NOT(complete);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 1);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::nullValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].second, "null");
     ISHIKO_TEST_PASS();
 }
