@@ -8,10 +8,12 @@
 
 void JSONPushParserTestCallbacks::onTrue(boost::string_view data)
 {
+    m_events.emplace_back(EventType::trueValue, data.to_string());
 }
 
 void JSONPushParserTestCallbacks::onFalse(boost::string_view data)
 {
+    m_events.emplace_back(EventType::falseValue, data.to_string());
 }
 
 void JSONPushParserTestCallbacks::onNull(boost::string_view data)

@@ -18,6 +18,8 @@ public:
     enum EventType
     {
         nullValue,
+        trueValue,
+        falseValue,
         whitespace
     };
 
