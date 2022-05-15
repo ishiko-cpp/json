@@ -104,6 +104,30 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             m_parsingModeStack.push_back(ParsingMode::elementWs1);
             break;
 
+        case ParsingMode::objectCommaOrRightCurlyBracket:
+            switch (*current)
+            {
+            case '}':
+                m_callbacks.onObjectEnd();
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
+                break;
+
+            case ',':
+                // TODO: I think is incorrect because it would allow { "n": "ny", }
+                m_parsingModeStack.back() = ParsingMode::objectWs1;
+                break;
+
+            default:
+                // TODO
+                break;
+            }
+            ++current;
+            break;
+
         case ParsingMode::valueString:
             while (current < end)
             {
@@ -345,7 +369,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                     }
                     else if (m_parsingModeStack.back() == ParsingMode::objectElement)
                     {
-                        m_parsingModeStack.back() = ParsingMode::objectMemberOrRightCurlyBracket;
+                        m_parsingModeStack.back() = ParsingMode::objectCommaOrRightCurlyBracket;
                     }
                 }
             }
@@ -383,6 +407,10 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ParsingMode::objectElement:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::objectCommaOrRightCurlyBracket:
                 // TODO: this is an error
                 break;
 

@@ -43,6 +43,7 @@ private:
         objectWs2,
         objectColon,
         objectElement,
+        objectCommaOrRightCurlyBracket,
         valueString,
         valueTrue,
         valueFalse,
