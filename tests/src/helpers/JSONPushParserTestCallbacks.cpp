@@ -6,6 +6,11 @@
 
 #include "JSONPushParserTestCallbacks.hpp"
 
+void JSONPushParserTestCallbacks::onString(boost::string_view data)
+{
+    m_events.emplace_back(EventType::stringValue, data.to_string());
+}
+
 void JSONPushParserTestCallbacks::onTrue(boost::string_view data)
 {
     m_events.emplace_back(EventType::trueValue, data.to_string());

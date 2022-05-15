@@ -9,6 +9,10 @@
 
 using namespace Ishiko;
 
+void JSONPushParser::Callbacks::onString(boost::string_view data)
+{
+}
+
 void JSONPushParser::Callbacks::onTrue(boost::string_view data)
 {
 }
@@ -42,6 +46,41 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
         {
         case ParsingMode::json:
             m_parsingModeStack.push_back(ParsingMode::elementWs1);
+            break;
+
+        case ParsingMode::valueString:
+            while (current < end)
+            {
+                // TODO: escape sequences and check for invalid characters
+                if (*current == '"')
+                {
+                    if (m_fragmentedData.empty() && ((current - previous) > 0))
+                    {
+                        m_callbacks.onString(boost::string_view(previous, (current - previous)));
+                    }
+                    else
+                    {
+                        m_fragmentedData.append(data.data(), current - data.data());
+                        m_callbacks.onString(m_fragmentedData);
+                        m_fragmentedData.clear();
+                    }
+                    break;
+                }
+                ++current;
+            }
+            if (current == end)
+            {
+                m_fragmentedData.append(previous, (current - previous));
+            }
+            else
+            {
+                ++current;
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
+            }
             break;
 
         case ParsingMode::valueTrue:
@@ -152,18 +191,25 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             break;
 
         case ParsingMode::elementValue:
-            previous = current;
             switch (*current)
             {
+            case '"':
+                previous = (current + 1);
+                m_parsingModeStack.push_back(ParsingMode::valueString);
+                break;
+
             case 'f':
+                previous = current;
                 m_parsingModeStack.push_back(ParsingMode::valueFalse);
                 break;
 
             case 'n':
+                previous = current;
                 m_parsingModeStack.push_back(ParsingMode::valueNull);
                 break;
 
             case 't':
+                previous = current;
                 m_parsingModeStack.push_back(ParsingMode::valueTrue);
                 break;
 
@@ -172,6 +218,10 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                  break;
             }
             ++current;
+            if (current == end)
+            {
+                m_fragmentedData.append(previous, (current - previous));
+            }
             break;
 
         case ParsingMode::elementWs2:
@@ -235,6 +285,14 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             {
             case ParsingMode::json:
                 // TODO: we parsed nothing or we reached the end normally, nothing is an error
+                break;
+
+            case ParsingMode::valueString:
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
                 break;
 
             case ParsingMode::valueTrue:
