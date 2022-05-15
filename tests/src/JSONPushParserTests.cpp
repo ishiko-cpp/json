@@ -16,10 +16,10 @@ JSONPushParserTests::JSONPushParserTests(const TestNumber& number, const TestCon
     : TestSequence(number, "JSONPushParser tests", context)
 {
     append<HeapAllocationErrorsTest>("Constructor test 1", ConstructorTest1);
-    append<HeapAllocationErrorsTest>("onData test 1", OnDataTest1);
-    append<HeapAllocationErrorsTest>("onData test 2", OnDataTest2);
-    append<HeapAllocationErrorsTest>("onData test 3", OnDataTest3);
-    append<HeapAllocationErrorsTest>("onData test 4", OnDataTest4);
+    append<HeapAllocationErrorsTest>("onData null value test 1", OnDataNullTest1);
+    append<HeapAllocationErrorsTest>("onData null value test 2", OnDataNullTest2);
+    append<HeapAllocationErrorsTest>("onData null value test 3", OnDataNullTest3);
+    append<HeapAllocationErrorsTest>("onData null value test 4", OnDataNullTest4);
 }
 
 void JSONPushParserTests::ConstructorTest1(Test& test)
@@ -30,7 +30,7 @@ void JSONPushParserTests::ConstructorTest1(Test& test)
     ISHIKO_TEST_PASS();
 }
 
-void JSONPushParserTests::OnDataTest1(Test& test)
+void JSONPushParserTests::OnDataNullTest1(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getTestDataPath("null1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
@@ -47,7 +47,7 @@ void JSONPushParserTests::OnDataTest1(Test& test)
     ISHIKO_TEST_PASS();
 }
 
-void JSONPushParserTests::OnDataTest2(Test& test)
+void JSONPushParserTests::OnDataNullTest2(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getTestDataPath("null2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
@@ -68,7 +68,7 @@ void JSONPushParserTests::OnDataTest2(Test& test)
     ISHIKO_TEST_PASS();
 }
 
-void JSONPushParserTests::OnDataTest3(Test& test)
+void JSONPushParserTests::OnDataNullTest3(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getTestDataPath("null1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
@@ -90,7 +90,7 @@ void JSONPushParserTests::OnDataTest3(Test& test)
     ISHIKO_TEST_PASS();
 }
 
-void JSONPushParserTests::OnDataTest4(Test& test)
+void JSONPushParserTests::OnDataNullTest4(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getTestDataPath("null1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
