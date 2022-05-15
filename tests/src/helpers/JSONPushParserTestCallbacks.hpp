@@ -17,6 +17,8 @@ class JSONPushParserTestCallbacks : public Ishiko::JSONPushParser::Callbacks
 public:
     enum EventType
     {
+        objectBegin,
+        objectEnd,
         nullValue,
         trueValue,
         falseValue,
@@ -24,6 +26,8 @@ public:
         whitespace
     };
 
+    void onObjectBegin() override;
+    void onObjectEnd() override;
     void onString(boost::string_view data) override;
     void onTrue(boost::string_view data) override;
     void onFalse(boost::string_view data) override;
