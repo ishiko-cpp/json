@@ -45,11 +45,71 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             break;
 
         case ParsingMode::valueTrue:
-            // TODO
+            while (current < end)
+            {
+                if (!ASCII::IsAlpha(*current))
+                {
+                    if (m_fragmentedData.empty() && ((current - previous) > 0))
+                    {
+                        // TODO: verify the text is "true"
+                        m_callbacks.onTrue(boost::string_view(previous, (current - previous)));
+                    }
+                    else
+                    {
+                        m_fragmentedData.append(data.data(), current - data.data());
+                        m_callbacks.onTrue(m_fragmentedData);
+                        m_fragmentedData.clear();
+                    }
+                    break;
+                }
+                ++current;
+            }
+            if (current == end)
+            {
+                m_fragmentedData.append(previous, (current - previous));
+            }
+            else
+            {
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
+            }
             break;
 
         case ParsingMode::valueFalse:
-            // TODO
+            while (current < end)
+            {
+                if (!ASCII::IsAlpha(*current))
+                {
+                    if (m_fragmentedData.empty() && ((current - previous) > 0))
+                    {
+                        // TODO: verify the text is "false"
+                        m_callbacks.onFalse(boost::string_view(previous, (current - previous)));
+                    }
+                    else
+                    {
+                        m_fragmentedData.append(data.data(), current - data.data());
+                        m_callbacks.onFalse(m_fragmentedData);
+                        m_fragmentedData.clear();
+                    }
+                    break;
+                }
+                ++current;
+            }
+            if (current == end)
+            {
+                m_fragmentedData.append(previous, (current - previous));
+            }
+            else
+            {
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
+            }
             break;
 
         case ParsingMode::valueNull:
@@ -178,11 +238,23 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ParsingMode::valueTrue:
-                // TODO
+                m_callbacks.onTrue(m_fragmentedData);
+                m_fragmentedData.clear();
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
                 break;
 
             case ParsingMode::valueFalse:
-                // TODO
+                m_callbacks.onFalse(m_fragmentedData);
+                m_fragmentedData.clear();
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
                 break;
 
             case ParsingMode::valueNull:
