@@ -38,6 +38,7 @@ private:
     static void OnDataStringTest5(Ishiko::Test& test);
     static void OnDataObjectTest1(Ishiko::Test& test);
     static void OnDataObjectTest2(Ishiko::Test& test);
+    static void OnDataObjectTest3(Ishiko::Test& test);
 };
 
 #endif

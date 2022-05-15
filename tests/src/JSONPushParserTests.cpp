@@ -38,6 +38,7 @@ JSONPushParserTests::JSONPushParserTests(const TestNumber& number, const TestCon
     append<HeapAllocationErrorsTest>("onData string value test 5", OnDataStringTest5);
     append<HeapAllocationErrorsTest>("onData object value test 1", OnDataObjectTest1);
     append<HeapAllocationErrorsTest>("onData object value test 2", OnDataObjectTest2);
+    append<HeapAllocationErrorsTest>("onData object value test 3", OnDataObjectTest3);
 }
 
 void JSONPushParserTests::ConstructorTest1(Test& test)
@@ -498,5 +499,27 @@ void JSONPushParserTests::OnDataObjectTest2(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::objectBegin);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[2].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_PASS();
+}
+
+void JSONPushParserTests::OnDataObjectTest3(Test& test)
+{
+    boost::filesystem::path inputPath = test.context().getTestDataPath("object3.json");
+    std::string jsonData = FileSystem::ReadFile(inputPath);
+
+    JSONPushParserTestCallbacks callbacks;
+    JSONPushParser parser(callbacks);
+
+    bool complete = parser.onData(jsonData, true);
+
+    ISHIKO_TEST_FAIL_IF_NOT(complete);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 5);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::objectBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[2].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[3].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[4].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[4].second, std::string("  ") + ASCII::LineEnding);
     ISHIKO_TEST_PASS();
 }

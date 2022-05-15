@@ -66,8 +66,11 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             {
             case '}':
                 m_callbacks.onObjectEnd();
-                m_parsingModeStack.pop_back(); // Pop ParsingMode::objectMemberOrRightCurlyBracket
-                m_parsingModeStack.pop_back(); // Pop ParsingMode::elementValue
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
                 break;
 
             case '"':
@@ -330,7 +333,6 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             {
             case ParsingMode::json:
                 // TODO: we parsed nothing or we reached the end normally, nothing is an error
-                return true;
                 break;
 
             case ParsingMode::objectWs1:
