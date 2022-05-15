@@ -28,6 +28,7 @@ JSONPushParserTests::JSONPushParserTests(const TestNumber& number, const TestCon
     append<HeapAllocationErrorsTest>("onData false value test 2", OnDataFalseTest2);
     append<HeapAllocationErrorsTest>("onData false value test 3", OnDataFalseTest3);
     append<HeapAllocationErrorsTest>("onData false value test 4", OnDataFalseTest4);
+    append<HeapAllocationErrorsTest>("onData string value test 1", OnDataStringTest1);
 }
 
 void JSONPushParserTests::ConstructorTest1(Test& test)
@@ -281,5 +282,22 @@ void JSONPushParserTests::OnDataFalseTest4(Test& test)
     ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 1);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::falseValue);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].second, "false");
+    ISHIKO_TEST_PASS();
+}
+
+void JSONPushParserTests::OnDataStringTest1(Test& test)
+{
+    boost::filesystem::path inputPath = test.context().getTestDataPath("string1.json");
+    std::string jsonData = FileSystem::ReadFile(inputPath);
+
+    JSONPushParserTestCallbacks callbacks;
+    JSONPushParser parser(callbacks);
+
+    bool complete = parser.onData(jsonData, true);
+
+    ISHIKO_TEST_FAIL_IF_NOT(complete);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 1);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::stringValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].second, "string");
     ISHIKO_TEST_PASS();
 }
