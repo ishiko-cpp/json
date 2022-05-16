@@ -18,6 +18,7 @@ public:
     enum EventType
     {
         objectBegin,
+        memberName,
         objectEnd,
         nullValue,
         trueValue,
@@ -27,6 +28,7 @@ public:
     };
 
     void onObjectBegin() override;
+    void onMemberName(boost::string_view data) override;
     void onObjectEnd() override;
     void onString(boost::string_view data) override;
     void onTrue() override;
