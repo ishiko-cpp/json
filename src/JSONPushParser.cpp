@@ -21,15 +21,15 @@ void JSONPushParser::Callbacks::onString(boost::string_view data)
 {
 }
 
-void JSONPushParser::Callbacks::onTrue(boost::string_view data)
+void JSONPushParser::Callbacks::onTrue()
 {
 }
 
-void JSONPushParser::Callbacks::onFalse(boost::string_view data)
+void JSONPushParser::Callbacks::onFalse()
 {
 }
 
-void JSONPushParser::Callbacks::onNull(boost::string_view data)
+void JSONPushParser::Callbacks::onNull()
 {
 }
 
@@ -175,12 +175,12 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                     if (m_fragmentedData.empty() && ((current - previous) > 0))
                     {
                         // TODO: verify the text is "true"
-                        m_callbacks.onTrue(boost::string_view(previous, (current - previous)));
+                        m_callbacks.onTrue();
                     }
                     else
                     {
                         m_fragmentedData.append(data.data(), current - data.data());
-                        m_callbacks.onTrue(m_fragmentedData);
+                        m_callbacks.onTrue();
                         m_fragmentedData.clear();
                     }
                     break;
@@ -209,12 +209,12 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                     if (m_fragmentedData.empty() && ((current - previous) > 0))
                     {
                         // TODO: verify the text is "false"
-                        m_callbacks.onFalse(boost::string_view(previous, (current - previous)));
+                        m_callbacks.onFalse();
                     }
                     else
                     {
                         m_fragmentedData.append(data.data(), current - data.data());
-                        m_callbacks.onFalse(m_fragmentedData);
+                        m_callbacks.onFalse();
                         m_fragmentedData.clear();
                     }
                     break;
@@ -243,12 +243,12 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                     if (m_fragmentedData.empty() && ((current - previous) > 0))
                     {
                         // TODO: verify the text is "null"
-                        m_callbacks.onNull(boost::string_view(previous, (current - previous)));
+                        m_callbacks.onNull();
                     }
                     else
                     {
                         m_fragmentedData.append(data.data(), current - data.data());
-                        m_callbacks.onNull(m_fragmentedData);
+                        m_callbacks.onNull();
                         m_fragmentedData.clear();
                     }
                     break;
@@ -423,7 +423,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ParsingMode::valueTrue:
-                m_callbacks.onTrue(m_fragmentedData);
+                m_callbacks.onTrue();
                 m_fragmentedData.clear();
                 m_parsingModeStack.pop_back();
                 if (m_parsingModeStack.back() == ParsingMode::elementValue)
@@ -433,7 +433,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ParsingMode::valueFalse:
-                m_callbacks.onFalse(m_fragmentedData);
+                m_callbacks.onFalse();
                 m_fragmentedData.clear();
                 m_parsingModeStack.pop_back();
                 if (m_parsingModeStack.back() == ParsingMode::elementValue)
@@ -443,7 +443,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ParsingMode::valueNull:
-                m_callbacks.onNull(m_fragmentedData);
+                m_callbacks.onNull();
                 m_fragmentedData.clear();
                 m_parsingModeStack.pop_back();
                 if (m_parsingModeStack.back() == ParsingMode::elementValue)

@@ -41,6 +41,8 @@ private:
     static void OnDataObjectTest3(Ishiko::Test& test);
     static void OnDataObjectTest4(Ishiko::Test& test);
     static void OnDataObjectTest5(Ishiko::Test& test);
+    static void OnDataNestedObjectsTest1(Ishiko::Test& test);
+    static void OnDataNestedObjectsTest2(Ishiko::Test& test);
 };
 
 #endif
