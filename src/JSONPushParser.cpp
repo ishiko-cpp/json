@@ -9,6 +9,14 @@
 
 using namespace Ishiko;
 
+void JSONPushParser::Callbacks::onObjectBegin()
+{
+}
+
+void JSONPushParser::Callbacks::onObjectEnd()
+{
+}
+
 void JSONPushParser::Callbacks::onString(boost::string_view data)
 {
 }
@@ -48,6 +56,78 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             m_parsingModeStack.push_back(ParsingMode::elementWs1);
             break;
 
+        case ParsingMode::objectWs1:
+            previous = current;
+            m_parsingModeStack.push_back(ParsingMode::ws);
+            break;
+
+        case ParsingMode::objectMemberOrRightCurlyBracket:
+            switch (*current)
+            {
+            case '}':
+                m_callbacks.onObjectEnd();
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
+                break;
+
+            case '"':
+                previous = (current + 1);
+                m_parsingModeStack.push_back(ParsingMode::valueString);
+                break;
+
+            default:
+                // TODO
+                break;
+            }
+            ++current;
+            break;
+
+        case ParsingMode::objectWs2:
+            previous = current;
+            m_parsingModeStack.push_back(ParsingMode::ws);
+            break;
+
+        case ParsingMode::objectColon:
+            if (*current != ':')
+            {
+                // TODO: error
+            }
+            ++current;
+            m_parsingModeStack.pop_back();
+            m_parsingModeStack.push_back(ParsingMode::objectElement);
+            break;
+
+        case ParsingMode::objectElement:
+            m_parsingModeStack.push_back(ParsingMode::elementWs1);
+            break;
+
+        case ParsingMode::objectCommaOrRightCurlyBracket:
+            switch (*current)
+            {
+            case '}':
+                m_callbacks.onObjectEnd();
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
+                break;
+
+            case ',':
+                // TODO: I think is incorrect because it would allow { "n": "ny", }
+                m_parsingModeStack.back() = ParsingMode::objectWs1;
+                break;
+
+            default:
+                // TODO
+                break;
+            }
+            ++current;
+            break;
+
         case ParsingMode::valueString:
             while (current < end)
             {
@@ -76,10 +156,14 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             {
                 ++current;
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::objectMemberOrRightCurlyBracket)
+                {
+                    m_parsingModeStack.back() = ParsingMode::objectWs2;
+                }
+                else if (m_parsingModeStack.back() == ParsingMode::elementValue)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
-                }
+                } 
             }
             break;
 
@@ -193,6 +277,12 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
         case ParsingMode::elementValue:
             switch (*current)
             {
+            case '{':
+                previous = (current + 1);
+                m_parsingModeStack.push_back(ParsingMode::objectWs1);
+                m_callbacks.onObjectBegin();
+                break;
+
             case '"':
                 previous = (current + 1);
                 m_parsingModeStack.push_back(ParsingMode::valueString);
@@ -251,12 +341,21 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             }
             if (current == end)
             {
+                // TODO
                 //m_fragmentedData1.append(previous, (current - previous));
             }
             else
             {
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementWs1)
+                if (m_parsingModeStack.back() == ParsingMode::objectWs1)
+                {
+                    m_parsingModeStack.back() = ParsingMode::objectMemberOrRightCurlyBracket;
+                }
+                else if (m_parsingModeStack.back() == ParsingMode::objectWs2)
+                {
+                    m_parsingModeStack.back() = ParsingMode::objectColon;
+                }
+                else if (m_parsingModeStack.back() == ParsingMode::elementWs1)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementValue;
                 }
@@ -267,6 +366,10 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                     if (m_parsingModeStack.back() == ParsingMode::json)
                     {
                         return true;
+                    }
+                    else if (m_parsingModeStack.back() == ParsingMode::objectElement)
+                    {
+                        m_parsingModeStack.back() = ParsingMode::objectCommaOrRightCurlyBracket;
                     }
                 }
             }
@@ -285,6 +388,30 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             {
             case ParsingMode::json:
                 // TODO: we parsed nothing or we reached the end normally, nothing is an error
+                break;
+
+            case ParsingMode::objectWs1:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::objectMemberOrRightCurlyBracket:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::objectWs2:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::objectColon:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::objectElement:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::objectCommaOrRightCurlyBracket:
+                // TODO: this is an error
                 break;
 
             case ParsingMode::valueString:
