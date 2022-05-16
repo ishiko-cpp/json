@@ -24,9 +24,9 @@ public:
         virtual void onObjectBegin();
         virtual void onObjectEnd();
         virtual void onString(boost::string_view data);
-        virtual void onTrue(boost::string_view data);
-        virtual void onFalse(boost::string_view data);
-        virtual void onNull(boost::string_view data);
+        virtual void onTrue();
+        virtual void onFalse();
+        virtual void onNull();
         virtual void onWhitespace(boost::string_view data);
     };
 

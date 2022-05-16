@@ -21,19 +21,19 @@ void JSONPushParserTestCallbacks::onString(boost::string_view data)
     m_events.emplace_back(EventType::stringValue, data.to_string());
 }
 
-void JSONPushParserTestCallbacks::onTrue(boost::string_view data)
+void JSONPushParserTestCallbacks::onTrue()
 {
-    m_events.emplace_back(EventType::trueValue, data.to_string());
+    m_events.emplace_back(EventType::trueValue, "true");
 }
 
-void JSONPushParserTestCallbacks::onFalse(boost::string_view data)
+void JSONPushParserTestCallbacks::onFalse()
 {
-    m_events.emplace_back(EventType::falseValue, data.to_string());
+    m_events.emplace_back(EventType::falseValue, "false");
 }
 
-void JSONPushParserTestCallbacks::onNull(boost::string_view data)
+void JSONPushParserTestCallbacks::onNull()
 {
-    m_events.emplace_back(EventType::nullValue, data.to_string());
+    m_events.emplace_back(EventType::nullValue, "null");
 }
 
 void JSONPushParserTestCallbacks::onWhitespace(boost::string_view data)

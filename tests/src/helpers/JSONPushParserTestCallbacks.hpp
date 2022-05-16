@@ -29,9 +29,9 @@ public:
     void onObjectBegin() override;
     void onObjectEnd() override;
     void onString(boost::string_view data) override;
-    void onTrue(boost::string_view data) override;
-    void onFalse(boost::string_view data) override;
-    void onNull(boost::string_view data) override;
+    void onTrue() override;
+    void onFalse() override;
+    void onNull() override;
     void onWhitespace(boost::string_view data) override;
 
     const std::vector<std::pair<EventType, std::string>>& events() const;
