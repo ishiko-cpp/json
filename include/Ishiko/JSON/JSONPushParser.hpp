@@ -22,6 +22,7 @@ public:
         virtual ~Callbacks() = default;
 
         virtual void onObjectBegin();
+        virtual void onMemberName(boost::string_view data);
         virtual void onObjectEnd();
         virtual void onString(boost::string_view data);
         virtual void onTrue();
@@ -40,6 +41,7 @@ private:
         json,
         objectWs1,
         objectMemberOrRightCurlyBracket,
+        objectMemberName,
         objectWs2,
         objectColon,
         objectElement,
