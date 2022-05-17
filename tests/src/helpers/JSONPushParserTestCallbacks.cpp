@@ -21,6 +21,16 @@ void JSONPushParserTestCallbacks::onObjectEnd()
     m_events.emplace_back(EventType::objectEnd, "");
 }
 
+void JSONPushParserTestCallbacks::onArrayBegin()
+{
+    m_events.emplace_back(EventType::arrayBegin, "");
+}
+
+void JSONPushParserTestCallbacks::onArrayEnd()
+{
+    m_events.emplace_back(EventType::arrayEnd, "");
+}
+
 void JSONPushParserTestCallbacks::onString(boost::string_view data)
 {
     m_events.emplace_back(EventType::stringValue, data.to_string());
