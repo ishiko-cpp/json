@@ -21,6 +21,14 @@ void JSONPushParser::Callbacks::onObjectEnd()
 {
 }
 
+void JSONPushParser::Callbacks::onArrayBegin()
+{
+}
+
+void JSONPushParser::Callbacks::onArrayEnd()
+{
+}
+
 void JSONPushParser::Callbacks::onString(boost::string_view data)
 {
 }
@@ -162,6 +170,55 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             case ',':
                 // TODO: I think is incorrect because it would allow { "n": "ny", }
                 m_parsingModeStack.back() = ParsingMode::objectWs1;
+                break;
+
+            default:
+                // TODO
+                break;
+            }
+            ++current;
+            break;
+
+        case ParsingMode::arrayWs1:
+            previous = current;
+            m_parsingModeStack.push_back(ParsingMode::ws);
+            break;
+
+        case ParsingMode::arrayElementOrRightSquareBracket:
+            switch (*current)
+            {
+            case ']':
+                m_callbacks.onArrayEnd();
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
+                ++current;
+                break;
+
+            default:
+                m_parsingModeStack.push_back(ParsingMode::elementWs1);
+                break;
+            }
+            break;
+
+        case ParsingMode::arrayCommaOrRightSquareBracket:
+            switch (*current)
+            {
+            case ']':
+                m_callbacks.onArrayEnd();
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
+                break;
+
+            case ',':
+                // TODO: I think is incorrect because it would allow [ "n", ], simple to fix by having extra state
+                // "arrayElement"
+                m_parsingModeStack.back() = ParsingMode::arrayElementOrRightSquareBracket;
                 break;
 
             default:
@@ -326,6 +383,12 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 m_callbacks.onObjectBegin();
                 break;
 
+            case '[':
+                previous = (current + 1);
+                m_parsingModeStack.push_back(ParsingMode::arrayWs1);
+                m_callbacks.onArrayBegin();
+                break;
+
             case '"':
                 previous = (current + 1);
                 m_parsingModeStack.push_back(ParsingMode::valueString);
@@ -398,6 +461,14 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 {
                     m_parsingModeStack.back() = ParsingMode::objectColon;
                 }
+                else if (m_parsingModeStack.back() == ParsingMode::arrayWs1)
+                {
+                    m_parsingModeStack.back() = ParsingMode::arrayElementOrRightSquareBracket;
+                }
+                else if (m_parsingModeStack.back() == ParsingMode::arrayElementOrRightSquareBracket)
+                {
+                    m_parsingModeStack.back() = ParsingMode::arrayCommaOrRightSquareBracket;
+                }
                 else if (m_parsingModeStack.back() == ParsingMode::elementWs1)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementValue;
@@ -413,6 +484,10 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                     else if (m_parsingModeStack.back() == ParsingMode::objectElement)
                     {
                         m_parsingModeStack.back() = ParsingMode::objectCommaOrRightCurlyBracket;
+                    }
+                    else if (m_parsingModeStack.back() == ParsingMode::arrayElementOrRightSquareBracket)
+                    {
+                        m_parsingModeStack.back() = ParsingMode::arrayCommaOrRightSquareBracket;
                     }
                 }
             }
@@ -458,6 +533,18 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ParsingMode::objectCommaOrRightCurlyBracket:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::arrayWs1:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::arrayElementOrRightSquareBracket:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::arrayCommaOrRightSquareBracket:
                 // TODO: this is an error
                 break;
 

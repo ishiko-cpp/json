@@ -24,6 +24,8 @@ public:
         virtual void onObjectBegin();
         virtual void onMemberName(boost::string_view data);
         virtual void onObjectEnd();
+        virtual void onArrayBegin();
+        virtual void onArrayEnd();
         virtual void onString(boost::string_view data);
         virtual void onTrue();
         virtual void onFalse();
@@ -46,6 +48,9 @@ private:
         objectColon,
         objectElement,
         objectCommaOrRightCurlyBracket,
+        arrayWs1,
+        arrayElementOrRightSquareBracket,
+        arrayCommaOrRightSquareBracket,
         valueString,
         valueTrue,
         valueFalse,
