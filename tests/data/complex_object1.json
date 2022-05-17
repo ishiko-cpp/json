@@ -1,0 +1,4 @@
+{
+    "name1": "name1 value",
+    "name2": [ "string", true, null ]
+}
