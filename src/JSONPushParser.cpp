@@ -207,7 +207,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             switch (*current)
             {
             case ']':
-                m_callbacks.onObjectEnd();
+                m_callbacks.onArrayEnd();
                 m_parsingModeStack.pop_back();
                 if (m_parsingModeStack.back() == ParsingMode::elementValue)
                 {
@@ -484,6 +484,10 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                     else if (m_parsingModeStack.back() == ParsingMode::objectElement)
                     {
                         m_parsingModeStack.back() = ParsingMode::objectCommaOrRightCurlyBracket;
+                    }
+                    else if (m_parsingModeStack.back() == ParsingMode::arrayElementOrRightSquareBracket)
+                    {
+                        m_parsingModeStack.back() = ParsingMode::arrayCommaOrRightSquareBracket;
                     }
                 }
             }
