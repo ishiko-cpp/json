@@ -194,6 +194,31 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
+                ++current;
+                break;
+
+            default:
+                m_parsingModeStack.push_back(ParsingMode::elementWs1);
+                break;
+            }
+            break;
+
+        case ParsingMode::arrayCommaOrRightSquareBracket:
+            switch (*current)
+            {
+            case ']':
+                m_callbacks.onObjectEnd();
+                m_parsingModeStack.pop_back();
+                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                {
+                    m_parsingModeStack.back() = ParsingMode::elementWs2;
+                }
+                break;
+
+            case ',':
+                // TODO: I think is incorrect because it would allow [ "n", ], simple to fix by having extra state
+                // "arrayElement"
+                m_parsingModeStack.back() = ParsingMode::arrayElementOrRightSquareBracket;
                 break;
 
             default:
@@ -440,6 +465,10 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 {
                     m_parsingModeStack.back() = ParsingMode::arrayElementOrRightSquareBracket;
                 }
+                else if (m_parsingModeStack.back() == ParsingMode::arrayElementOrRightSquareBracket)
+                {
+                    m_parsingModeStack.back() = ParsingMode::arrayCommaOrRightSquareBracket;
+                }
                 else if (m_parsingModeStack.back() == ParsingMode::elementWs1)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementValue;
@@ -508,6 +537,10 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ParsingMode::arrayElementOrRightSquareBracket:
+                // TODO: this is an error
+                break;
+
+            case ParsingMode::arrayCommaOrRightSquareBracket:
                 // TODO: this is an error
                 break;
 

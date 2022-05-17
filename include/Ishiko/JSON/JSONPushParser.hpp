@@ -50,6 +50,7 @@ private:
         objectCommaOrRightCurlyBracket,
         arrayWs1,
         arrayElementOrRightSquareBracket,
+        arrayCommaOrRightSquareBracket,
         valueString,
         valueTrue,
         valueFalse,
