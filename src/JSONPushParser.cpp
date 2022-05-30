@@ -13,7 +13,15 @@ void JSONPushParser::Callbacks::onObjectBegin()
 {
 }
 
+void JSONPushParser::Callbacks::onMemberBegin()
+{
+}
+
 void JSONPushParser::Callbacks::onMemberName(boost::string_view data)
+{
+}
+
+void JSONPushParser::Callbacks::onMemberEnd()
 {
 }
 
@@ -86,6 +94,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case '"':
+                m_callbacks.onMemberBegin();
                 previous = (current + 1);
                 m_parsingModeStack.push_back(ParsingMode::objectMemberName);
                 break;

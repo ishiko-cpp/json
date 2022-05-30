@@ -22,7 +22,9 @@ public:
         virtual ~Callbacks() = default;
 
         virtual void onObjectBegin();
+        virtual void onMemberBegin();
         virtual void onMemberName(boost::string_view data);
+        virtual void onMemberEnd();
         virtual void onObjectEnd();
         virtual void onArrayBegin();
         virtual void onArrayEnd();

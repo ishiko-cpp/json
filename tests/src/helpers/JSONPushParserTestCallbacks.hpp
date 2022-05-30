@@ -18,6 +18,7 @@ public:
     enum EventType
     {
         objectBegin,
+        memberBegin,
         memberName,
         objectEnd,
         arrayBegin,
@@ -30,6 +31,7 @@ public:
     };
 
     void onObjectBegin() override;
+    void onMemberBegin() override;
     void onMemberName(boost::string_view data) override;
     void onObjectEnd() override;
     void onArrayBegin() override;
