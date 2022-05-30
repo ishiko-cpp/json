@@ -550,7 +550,7 @@ void JSONPushParserTests::OnDataObjectTest4(Test& test)
     bool complete = parser.onData(jsonData, true);
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
-    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 8);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 9);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::objectBegin);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].second, std::string(ASCII::LineEnding) + "    ");
@@ -563,7 +563,8 @@ void JSONPushParserTests::OnDataObjectTest4(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[5].second, "name value");
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].second, ASCII::LineEnding);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].first, JSONPushParserTestCallbacks::EventType::objectEnd);
     ISHIKO_TEST_PASS();
 }
 
@@ -578,7 +579,7 @@ void JSONPushParserTests::OnDataObjectTest5(Test& test)
     bool complete = parser.onData(jsonData, true);
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
-    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 13);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 15);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::objectBegin);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].second, std::string(ASCII::LineEnding) + "    ");
@@ -589,18 +590,20 @@ void JSONPushParserTests::OnDataObjectTest5(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[4].second, " ");
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[5].first, JSONPushParserTestCallbacks::EventType::stringValue);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[5].second, "name value");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].second, std::string(ASCII::LineEnding) + "    ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::memberBegin);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].first, JSONPushParserTestCallbacks::EventType::memberName);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].second, "name2");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].first, JSONPushParserTestCallbacks::EventType::trueValue);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].second, "true");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].second, ASCII::LineEnding);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].second, std::string(ASCII::LineEnding) + "    ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].first, JSONPushParserTestCallbacks::EventType::memberBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].first, JSONPushParserTestCallbacks::EventType::memberName);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].second, "name2");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].first, JSONPushParserTestCallbacks::EventType::trueValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].second, "true");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].second, ASCII::LineEnding);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].first, JSONPushParserTestCallbacks::EventType::objectEnd);
     ISHIKO_TEST_PASS();
 }
 
@@ -615,7 +618,7 @@ void JSONPushParserTests::OnDataObjectTest6(Test& test)
     bool complete = parser.onData(jsonData, true);
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
-    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 18);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 21);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::objectBegin);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].second, std::string(ASCII::LineEnding) + "    ");
@@ -626,27 +629,30 @@ void JSONPushParserTests::OnDataObjectTest6(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[4].second, " ");
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[5].first, JSONPushParserTestCallbacks::EventType::stringValue);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[5].second, "name value");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].second, std::string(ASCII::LineEnding) + "    ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::memberBegin);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].first, JSONPushParserTestCallbacks::EventType::memberName);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].second, "name2");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].first, JSONPushParserTestCallbacks::EventType::trueValue);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].second, "true");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].second, std::string(ASCII::LineEnding) + "    ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::memberBegin);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].first, JSONPushParserTestCallbacks::EventType::memberName);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].second, "name3");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].first, JSONPushParserTestCallbacks::EventType::nullValue);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].second, "null");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].second, std::string(ASCII::LineEnding) + "    ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].first, JSONPushParserTestCallbacks::EventType::memberBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].first, JSONPushParserTestCallbacks::EventType::memberName);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].second, "name2");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].first, JSONPushParserTestCallbacks::EventType::trueValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].second, "true");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].second, std::string(ASCII::LineEnding) + "    ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].first, JSONPushParserTestCallbacks::EventType::memberBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].first, JSONPushParserTestCallbacks::EventType::memberName);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].second, "name3");
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].second, ASCII::LineEnding);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].first, JSONPushParserTestCallbacks::EventType::nullValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].second, "null");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].second, ASCII::LineEnding);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].first, JSONPushParserTestCallbacks::EventType::objectEnd);
     ISHIKO_TEST_PASS();
 }
 
@@ -661,7 +667,7 @@ void JSONPushParserTests::OnDataNestedObjectsTest1(Test& test)
     bool complete = parser.onData(jsonData, true);
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
-    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 16);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 18);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::objectBegin);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].second, std::string(ASCII::LineEnding) + "    ");
@@ -682,12 +688,14 @@ void JSONPushParserTests::OnDataNestedObjectsTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].second, "nested object value");
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].second, std::string(ASCII::LineEnding) + "    ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::objectEnd);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].second, ASCII::LineEnding);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].first, JSONPushParserTestCallbacks::EventType::objectEnd);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].second, ASCII::LineEnding);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].second, ASCII::LineEnding);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].second, ASCII::LineEnding);
     ISHIKO_TEST_PASS();
 }
 
@@ -702,7 +710,7 @@ void JSONPushParserTests::OnDataNestedObjectsTest2(Test& test)
     bool complete = parser.onData(jsonData, true);
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
-    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 23);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 26);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::objectBegin);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].second, std::string(ASCII::LineEnding) + "    ");
@@ -731,15 +739,18 @@ void JSONPushParserTests::OnDataNestedObjectsTest2(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].second, "nested nested object value");
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].second, std::string(ASCII::LineEnding) + "        ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].first, JSONPushParserTestCallbacks::EventType::objectEnd);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].second, std::string(ASCII::LineEnding) + "    ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].first, JSONPushParserTestCallbacks::EventType::objectEnd);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].second, ASCII::LineEnding);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].second, std::string(ASCII::LineEnding) + "    ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].first, JSONPushParserTestCallbacks::EventType::memberEnd);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[21].first, JSONPushParserTestCallbacks::EventType::objectEnd);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[22].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[22].second, ASCII::LineEnding);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[23].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[24].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[25].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[25].second, ASCII::LineEnding);
     ISHIKO_TEST_PASS();
 }
 
@@ -956,7 +967,7 @@ void JSONPushParserTests::OnDataComplexObjectTest1(Test& test)
     bool complete = parser.onData(jsonData, true);
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
-    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 22);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 24);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::objectBegin);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].second, std::string(ASCII::LineEnding) + "    ");
@@ -967,34 +978,36 @@ void JSONPushParserTests::OnDataComplexObjectTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[4].second, " ");
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[5].first, JSONPushParserTestCallbacks::EventType::stringValue);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[5].second, "name1 value");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].second, std::string(ASCII::LineEnding) + "    ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::memberBegin);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].first, JSONPushParserTestCallbacks::EventType::memberName);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].second, "name2");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].first, JSONPushParserTestCallbacks::EventType::arrayBegin);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::stringValue);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].second, "string");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].first, JSONPushParserTestCallbacks::EventType::trueValue);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].second, "true");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].first, JSONPushParserTestCallbacks::EventType::nullValue);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].second, "null");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].first, JSONPushParserTestCallbacks::EventType::arrayEnd);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].second, std::string(ASCII::LineEnding));
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].first, JSONPushParserTestCallbacks::EventType::objectEnd);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[21].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[21].second, std::string(ASCII::LineEnding));
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].second, std::string(ASCII::LineEnding) + "    ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].first, JSONPushParserTestCallbacks::EventType::memberBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].first, JSONPushParserTestCallbacks::EventType::memberName);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].second, "name2");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].first, JSONPushParserTestCallbacks::EventType::arrayBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].first, JSONPushParserTestCallbacks::EventType::stringValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].second, "string");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].first, JSONPushParserTestCallbacks::EventType::trueValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].second, "true");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].first, JSONPushParserTestCallbacks::EventType::nullValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].second, "null");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].first, JSONPushParserTestCallbacks::EventType::arrayEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].second, std::string(ASCII::LineEnding));
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[21].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[22].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[23].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[23].second, std::string(ASCII::LineEnding));
     ISHIKO_TEST_PASS();
 }
 
@@ -1009,7 +1022,7 @@ void JSONPushParserTests::OnDataComplexObjectTest2(Test& test)
     bool complete = parser.onData(jsonData, true);
 
     ISHIKO_TEST_FAIL_IF_NOT(complete);
-    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 25);
+    ISHIKO_TEST_ABORT_IF_NEQ(callbacks.events().size(), 28);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[0].first, JSONPushParserTestCallbacks::EventType::objectBegin);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[1].second, std::string(ASCII::LineEnding) + "    ");
@@ -1020,36 +1033,39 @@ void JSONPushParserTests::OnDataComplexObjectTest2(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[4].second, " ");
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[5].first, JSONPushParserTestCallbacks::EventType::stringValue);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[5].second, "name1 value");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].second, std::string(ASCII::LineEnding) + "    ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::memberBegin);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].first, JSONPushParserTestCallbacks::EventType::memberName);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].second, "name2");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].first, JSONPushParserTestCallbacks::EventType::arrayBegin);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].second, std::string(ASCII::LineEnding) + "        ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::objectBegin);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].second, std::string(ASCII::LineEnding) + "            ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].first, JSONPushParserTestCallbacks::EventType::memberBegin);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].first, JSONPushParserTestCallbacks::EventType::memberName);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].second, "nestedname1");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].second, " ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].first, JSONPushParserTestCallbacks::EventType::stringValue);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].second, "nestedname1 value");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].second, std::string(ASCII::LineEnding) + "        ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].first, JSONPushParserTestCallbacks::EventType::objectEnd);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].second, std::string(ASCII::LineEnding) + "    ");
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[21].first, JSONPushParserTestCallbacks::EventType::arrayEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[6].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[7].second, std::string(ASCII::LineEnding) + "    ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[8].first, JSONPushParserTestCallbacks::EventType::memberBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].first, JSONPushParserTestCallbacks::EventType::memberName);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[9].second, "name2");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[10].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[11].first, JSONPushParserTestCallbacks::EventType::arrayBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[12].second, std::string(ASCII::LineEnding) + "        ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[13].first, JSONPushParserTestCallbacks::EventType::objectBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[14].second, std::string(ASCII::LineEnding) + "            ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[15].first, JSONPushParserTestCallbacks::EventType::memberBegin);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].first, JSONPushParserTestCallbacks::EventType::memberName);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[16].second, "nestedname1");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[17].second, " ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].first, JSONPushParserTestCallbacks::EventType::stringValue);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[18].second, "nestedname1 value");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[19].second, std::string(ASCII::LineEnding) + "        ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[20].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[21].first, JSONPushParserTestCallbacks::EventType::objectEnd);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[22].first, JSONPushParserTestCallbacks::EventType::whitespace);
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[22].second, std::string(ASCII::LineEnding));
-    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[23].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[22].second, std::string(ASCII::LineEnding) + "    ");
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[23].first, JSONPushParserTestCallbacks::EventType::arrayEnd);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[24].first, JSONPushParserTestCallbacks::EventType::whitespace);
     ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[24].second, std::string(ASCII::LineEnding));
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[25].first, JSONPushParserTestCallbacks::EventType::memberEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[26].first, JSONPushParserTestCallbacks::EventType::objectEnd);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[27].first, JSONPushParserTestCallbacks::EventType::whitespace);
+    ISHIKO_TEST_FAIL_IF_NEQ(callbacks.events()[27].second, std::string(ASCII::LineEnding));
     ISHIKO_TEST_PASS();
 }

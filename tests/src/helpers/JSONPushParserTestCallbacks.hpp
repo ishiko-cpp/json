@@ -20,6 +20,7 @@ public:
         objectBegin,
         memberBegin,
         memberName,
+        memberEnd,
         objectEnd,
         arrayBegin,
         arrayEnd,
@@ -33,6 +34,7 @@ public:
     void onObjectBegin() override;
     void onMemberBegin() override;
     void onMemberName(boost::string_view data) override;
+    void onMemberEnd() override;
     void onObjectEnd() override;
     void onArrayBegin() override;
     void onArrayEnd() override;

@@ -168,6 +168,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             switch (*current)
             {
             case '}':
+                m_callbacks.onMemberEnd();
                 m_callbacks.onObjectEnd();
                 m_parsingModeStack.pop_back();
                 if (m_parsingModeStack.back() == ParsingMode::elementValue)
@@ -177,6 +178,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 break;
 
             case ',':
+                m_callbacks.onMemberEnd();
                 // TODO: I think is incorrect because it would allow { "n": "ny", }
                 m_parsingModeStack.back() = ParsingMode::objectWs1;
                 break;
