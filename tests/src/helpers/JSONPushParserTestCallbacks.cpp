@@ -11,9 +11,29 @@ void JSONPushParserTestCallbacks::onObjectBegin()
     m_events.emplace_back(EventType::objectBegin, "");
 }
 
+void JSONPushParserTestCallbacks::onMemberBegin()
+{
+    m_events.emplace_back(EventType::memberBegin, "");
+}
+
 void JSONPushParserTestCallbacks::onMemberName(boost::string_view data)
 {
     m_events.emplace_back(EventType::memberName, data.to_string());
+}
+
+void JSONPushParserTestCallbacks::onMemberElementBegin()
+{
+    m_events.emplace_back(EventType::memberElementBegin, "");
+}
+
+void JSONPushParserTestCallbacks::onMemberElementEnd()
+{
+    m_events.emplace_back(EventType::memberElementEnd, "");
+}
+
+void JSONPushParserTestCallbacks::onMemberEnd()
+{
+    m_events.emplace_back(EventType::memberEnd, "");
 }
 
 void JSONPushParserTestCallbacks::onObjectEnd()
