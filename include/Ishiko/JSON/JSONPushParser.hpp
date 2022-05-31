@@ -24,6 +24,8 @@ public:
         virtual void onObjectBegin();
         virtual void onMemberBegin();
         virtual void onMemberName(boost::string_view data);
+        virtual void onMemberElementBegin();
+        virtual void onMemberElementEnd();
         virtual void onMemberEnd();
         virtual void onObjectEnd();
         virtual void onArrayBegin();

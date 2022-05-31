@@ -21,6 +21,14 @@ void JSONPushParser::Callbacks::onMemberName(boost::string_view data)
 {
 }
 
+void JSONPushParser::Callbacks::onMemberElementBegin()
+{
+}
+
+void JSONPushParser::Callbacks::onMemberElementEnd()
+{
+}
+
 void JSONPushParser::Callbacks::onMemberEnd()
 {
 }
@@ -161,6 +169,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             break;
 
         case ParsingMode::objectElement:
+            m_callbacks.onMemberElementBegin();
             m_parsingModeStack.push_back(ParsingMode::elementWs1);
             break;
 
@@ -494,6 +503,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                     }
                     else if (m_parsingModeStack.back() == ParsingMode::objectElement)
                     {
+                        m_callbacks.onMemberElementEnd();
                         m_parsingModeStack.back() = ParsingMode::objectCommaOrRightCurlyBracket;
                     }
                     else if (m_parsingModeStack.back() == ParsingMode::arrayElementOrRightSquareBracket)
