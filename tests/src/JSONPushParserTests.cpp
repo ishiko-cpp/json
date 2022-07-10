@@ -66,7 +66,7 @@ void JSONPushParserTests::ConstructorTest1(Test& test)
 
 void JSONPushParserTests::OnDataNullTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("null1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("null1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -83,7 +83,7 @@ void JSONPushParserTests::OnDataNullTest1(Test& test)
 
 void JSONPushParserTests::OnDataNullTest2(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("null2.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("null2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -104,7 +104,7 @@ void JSONPushParserTests::OnDataNullTest2(Test& test)
 
 void JSONPushParserTests::OnDataNullTest3(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("null1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("null1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -126,7 +126,7 @@ void JSONPushParserTests::OnDataNullTest3(Test& test)
 
 void JSONPushParserTests::OnDataNullTest4(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("null1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("null1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -148,7 +148,7 @@ void JSONPushParserTests::OnDataNullTest4(Test& test)
 
 void JSONPushParserTests::OnDataNullTest5(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("null1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("null1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -170,7 +170,7 @@ void JSONPushParserTests::OnDataNullTest5(Test& test)
 
 void JSONPushParserTests::OnDataTrueTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("true1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("true1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -187,7 +187,7 @@ void JSONPushParserTests::OnDataTrueTest1(Test& test)
 
 void JSONPushParserTests::OnDataTrueTest2(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("true2.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("true2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -208,7 +208,7 @@ void JSONPushParserTests::OnDataTrueTest2(Test& test)
 
 void JSONPushParserTests::OnDataTrueTest3(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("true1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("true1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -230,7 +230,7 @@ void JSONPushParserTests::OnDataTrueTest3(Test& test)
 
 void JSONPushParserTests::OnDataTrueTest4(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("true1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("true1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -252,7 +252,7 @@ void JSONPushParserTests::OnDataTrueTest4(Test& test)
 
 void JSONPushParserTests::OnDataTrueTest5(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("true1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("true1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -274,7 +274,7 @@ void JSONPushParserTests::OnDataTrueTest5(Test& test)
 
 void JSONPushParserTests::OnDataFalseTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("false1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("false1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -291,7 +291,7 @@ void JSONPushParserTests::OnDataFalseTest1(Test& test)
 
 void JSONPushParserTests::OnDataFalseTest2(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("false2.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("false2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -312,7 +312,7 @@ void JSONPushParserTests::OnDataFalseTest2(Test& test)
 
 void JSONPushParserTests::OnDataFalseTest3(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("false1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("false1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -334,7 +334,7 @@ void JSONPushParserTests::OnDataFalseTest3(Test& test)
 
 void JSONPushParserTests::OnDataFalseTest4(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("false1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("false1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -356,7 +356,7 @@ void JSONPushParserTests::OnDataFalseTest4(Test& test)
 
 void JSONPushParserTests::OnDataFalseTest5(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("false1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("false1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -378,7 +378,7 @@ void JSONPushParserTests::OnDataFalseTest5(Test& test)
 
 void JSONPushParserTests::OnDataStringTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("string1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("string1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -395,7 +395,7 @@ void JSONPushParserTests::OnDataStringTest1(Test& test)
 
 void JSONPushParserTests::OnDataStringTest2(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("string2.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("string2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -416,7 +416,7 @@ void JSONPushParserTests::OnDataStringTest2(Test& test)
 
 void JSONPushParserTests::OnDataStringTest3(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("string1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("string1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -440,7 +440,7 @@ void JSONPushParserTests::OnDataStringTest3(Test& test)
 
 void JSONPushParserTests::OnDataStringTest4(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("string1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("string1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -462,7 +462,7 @@ void JSONPushParserTests::OnDataStringTest4(Test& test)
 
 void JSONPushParserTests::OnDataStringTest5(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("string1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("string1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -484,7 +484,7 @@ void JSONPushParserTests::OnDataStringTest5(Test& test)
 
 void JSONPushParserTests::OnDataObjectTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("object1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("object1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -501,7 +501,7 @@ void JSONPushParserTests::OnDataObjectTest1(Test& test)
 
 void JSONPushParserTests::OnDataObjectTest2(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("object2.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("object2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -519,7 +519,7 @@ void JSONPushParserTests::OnDataObjectTest2(Test& test)
 
 void JSONPushParserTests::OnDataObjectTest3(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("object3.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("object3.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -541,7 +541,7 @@ void JSONPushParserTests::OnDataObjectTest3(Test& test)
 
 void JSONPushParserTests::OnDataObjectTest4(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("object4.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("object4.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -572,7 +572,7 @@ void JSONPushParserTests::OnDataObjectTest4(Test& test)
 
 void JSONPushParserTests::OnDataObjectTest5(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("object5.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("object5.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -615,7 +615,7 @@ void JSONPushParserTests::OnDataObjectTest5(Test& test)
 
 void JSONPushParserTests::OnDataObjectTest6(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("object6.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("object6.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -670,7 +670,7 @@ void JSONPushParserTests::OnDataObjectTest6(Test& test)
 
 void JSONPushParserTests::OnDataNestedObjectsTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("nested_objects1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("nested_objects1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -717,7 +717,7 @@ void JSONPushParserTests::OnDataNestedObjectsTest1(Test& test)
 
 void JSONPushParserTests::OnDataNestedObjectsTest2(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("nested_objects2.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("nested_objects2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -778,7 +778,7 @@ void JSONPushParserTests::OnDataNestedObjectsTest2(Test& test)
 
 void JSONPushParserTests::OnDataArrayTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("array1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("array1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -795,7 +795,7 @@ void JSONPushParserTests::OnDataArrayTest1(Test& test)
 
 void JSONPushParserTests::OnDataArrayTest2(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("array2.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("array2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -813,7 +813,7 @@ void JSONPushParserTests::OnDataArrayTest2(Test& test)
 
 void JSONPushParserTests::OnDataArrayTest3(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("array3.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("array3.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -835,7 +835,7 @@ void JSONPushParserTests::OnDataArrayTest3(Test& test)
 
 void JSONPushParserTests::OnDataArrayTest4(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("array4.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("array4.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -858,7 +858,7 @@ void JSONPushParserTests::OnDataArrayTest4(Test& test)
 
 void JSONPushParserTests::OnDataArrayTest5(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("array5.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("array5.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -885,7 +885,7 @@ void JSONPushParserTests::OnDataArrayTest5(Test& test)
 
 void JSONPushParserTests::OnDataArrayTest6(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("array6.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("array6.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -916,7 +916,7 @@ void JSONPushParserTests::OnDataArrayTest6(Test& test)
 
 void JSONPushParserTests::OnDataNestedArraysTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("nested_arrays1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("nested_arrays1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -945,7 +945,7 @@ void JSONPushParserTests::OnDataNestedArraysTest1(Test& test)
 
 void JSONPushParserTests::OnDataNestedArraysTest2(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("nested_arrays2.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("nested_arrays2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -980,7 +980,7 @@ void JSONPushParserTests::OnDataNestedArraysTest2(Test& test)
 
 void JSONPushParserTests::OnDataComplexObjectTest1(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("complex_object1.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("complex_object1.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
@@ -1039,7 +1039,7 @@ void JSONPushParserTests::OnDataComplexObjectTest1(Test& test)
 
 void JSONPushParserTests::OnDataComplexObjectTest2(Test& test)
 {
-    boost::filesystem::path inputPath = test.context().getTestDataPath("complex_object2.json");
+    boost::filesystem::path inputPath = test.context().getDataPath("complex_object2.json");
     std::string jsonData = FileSystem::ReadFile(inputPath);
 
     JSONPushParserTestCallbacks callbacks;
