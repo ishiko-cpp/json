@@ -1,7 +1,7 @@
 setting ISHIKO_CPP_JSON_ROOT
 {
-    help = "Path to the Ishiko JSON installation";
-    default = '$(ISHIKO_CPP)/json';
+    help = "Path to the Ishiko/C++ JSON installation";
+    default = '$(ISHIKO_CPP_ROOT)/json';
 }
 
 template IshikoJSON
