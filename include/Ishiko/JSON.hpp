@@ -1,11 +1,8 @@
-/*
-    Copyright (c) 2022 Xavier Leclercq
-    Released under the MIT License
-    See https://github.com/ishiko-cpp/json/blob/main/LICENSE.txt
-*/
+// SPDX-FileCopyrightText: 2005-2024 Xavier Leclercq
+// SPDX-License-Identifier: BSL-1.0
 
-#ifndef _ISHIKO_CPP_JSON_HPP_
-#define _ISHIKO_CPP_JSON_HPP_
+#ifndef GUARD_ISHIKO_CPP_JSON_HPP
+#define GUARD_ISHIKO_CPP_JSON_HPP
 
 #include "JSON/JSONPushParser.hpp"
 #include "JSON/linkoptions.hpp"
