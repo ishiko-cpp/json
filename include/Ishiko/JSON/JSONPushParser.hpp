@@ -41,12 +41,12 @@ namespace Ishiko
         enum class ParsingMode
         {
             json,
-            objectWs1,
+            object_ws1,
             objectMemberOrRightCurlyBracket,
             objectMemberName,
-            objectWs2,
-            objectColon,
-            objectElement,
+            object_ws2,
+            object_colon,
+            object_element,
             objectCommaOrRightCurlyBracket,
             arrayWs1,
             arrayElementOrRightSquareBracket,
@@ -56,7 +56,7 @@ namespace Ishiko
             valueFalse,
             valueNull,
             elementWs1,
-            elementValue,
+            element_value,
             elementWs2,
             ws
         };

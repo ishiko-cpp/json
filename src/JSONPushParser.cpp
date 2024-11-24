@@ -81,7 +81,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             m_parsingModeStack.push_back(ParsingMode::elementWs1);
             break;
 
-        case ParsingMode::objectWs1:
+        case ParsingMode::object_ws1:
             previous = current;
             m_parsingModeStack.push_back(ParsingMode::ws);
             break;
@@ -92,7 +92,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             case '}':
                 m_callbacks.onObjectEnd();
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -141,31 +141,31 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 m_parsingModeStack.pop_back();
                 if (m_parsingModeStack.back() == ParsingMode::objectMemberOrRightCurlyBracket)
                 {
-                    m_parsingModeStack.back() = ParsingMode::objectWs2;
+                    m_parsingModeStack.back() = ParsingMode::object_ws2;
                 }
-                else if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                else if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
             }
             break;
 
-        case ParsingMode::objectWs2:
+        case ParsingMode::object_ws2:
             previous = current;
             m_parsingModeStack.push_back(ParsingMode::ws);
             break;
 
-        case ParsingMode::objectColon:
+        case ParsingMode::object_colon:
             if (*current != ':')
             {
                 // TODO: error
             }
             ++current;
             m_parsingModeStack.pop_back();
-            m_parsingModeStack.push_back(ParsingMode::objectElement);
+            m_parsingModeStack.push_back(ParsingMode::object_element);
             break;
 
-        case ParsingMode::objectElement:
+        case ParsingMode::object_element:
             m_callbacks.onMemberElementBegin();
             m_parsingModeStack.push_back(ParsingMode::elementWs1);
             break;
@@ -177,7 +177,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 m_callbacks.onMemberEnd();
                 m_callbacks.onObjectEnd();
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -186,7 +186,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             case ',':
                 m_callbacks.onMemberEnd();
                 // TODO: I think is incorrect because it would allow { "n": "ny", }
-                m_parsingModeStack.back() = ParsingMode::objectWs1;
+                m_parsingModeStack.back() = ParsingMode::object_ws1;
                 break;
 
             default:
@@ -207,7 +207,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             case ']':
                 m_callbacks.onArrayEnd();
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -226,7 +226,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             case ']':
                 m_callbacks.onArrayEnd();
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -275,9 +275,9 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 m_parsingModeStack.pop_back();
                 if (m_parsingModeStack.back() == ParsingMode::objectMemberOrRightCurlyBracket)
                 {
-                    m_parsingModeStack.back() = ParsingMode::objectWs2;
+                    m_parsingModeStack.back() = ParsingMode::object_ws2;
                 }
-                else if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                else if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 } 
@@ -311,7 +311,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             else
             {
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -345,7 +345,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             else
             {
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -379,7 +379,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             else
             {
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -391,12 +391,12 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             m_parsingModeStack.push_back(ParsingMode::ws);
             break;
 
-        case ParsingMode::elementValue:
+        case ParsingMode::element_value:
             switch (*current)
             {
             case '{':
                 previous = (current + 1);
-                m_parsingModeStack.push_back(ParsingMode::objectWs1);
+                m_parsingModeStack.push_back(ParsingMode::object_ws1);
                 m_callbacks.onObjectBegin();
                 break;
 
@@ -470,13 +470,13 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
             else
             {
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::objectWs1)
+                if (m_parsingModeStack.back() == ParsingMode::object_ws1)
                 {
                     m_parsingModeStack.back() = ParsingMode::objectMemberOrRightCurlyBracket;
                 }
-                else if (m_parsingModeStack.back() == ParsingMode::objectWs2)
+                else if (m_parsingModeStack.back() == ParsingMode::object_ws2)
                 {
-                    m_parsingModeStack.back() = ParsingMode::objectColon;
+                    m_parsingModeStack.back() = ParsingMode::object_colon;
                 }
                 else if (m_parsingModeStack.back() == ParsingMode::arrayWs1)
                 {
@@ -488,7 +488,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 }
                 else if (m_parsingModeStack.back() == ParsingMode::elementWs1)
                 {
-                    m_parsingModeStack.back() = ParsingMode::elementValue;
+                    m_parsingModeStack.back() = ParsingMode::element_value;
                 }
                 else if (m_parsingModeStack.back() == ParsingMode::elementWs2)
                 {
@@ -498,7 +498,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                     {
                         return true;
                     }
-                    else if (m_parsingModeStack.back() == ParsingMode::objectElement)
+                    else if (m_parsingModeStack.back() == ParsingMode::object_element)
                     {
                         m_callbacks.onMemberElementEnd();
                         m_parsingModeStack.back() = ParsingMode::objectCommaOrRightCurlyBracket;
@@ -526,7 +526,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 // TODO: we parsed nothing or we reached the end normally, nothing is an error
                 break;
 
-            case ParsingMode::objectWs1:
+            case ParsingMode::object_ws1:
                 // TODO: this is an error
                 break;
 
@@ -538,15 +538,15 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 // TODO: this is an error
                 break;
 
-            case ParsingMode::objectWs2:
+            case ParsingMode::object_ws2:
                 // TODO: this is an error
                 break;
 
-            case ParsingMode::objectColon:
+            case ParsingMode::object_colon:
                 // TODO: this is an error
                 break;
 
-            case ParsingMode::objectElement:
+            case ParsingMode::object_element:
                 // TODO: this is an error
                 break;
 
@@ -568,7 +568,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
 
             case ParsingMode::valueString:
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -578,7 +578,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 m_callbacks.onTrue();
                 m_fragmentedData.clear();
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -588,7 +588,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 m_callbacks.onFalse();
                 m_fragmentedData.clear();
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -598,7 +598,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 m_callbacks.onNull();
                 m_fragmentedData.clear();
                 m_parsingModeStack.pop_back();
-                if (m_parsingModeStack.back() == ParsingMode::elementValue)
+                if (m_parsingModeStack.back() == ParsingMode::element_value)
                 {
                     m_parsingModeStack.back() = ParsingMode::elementWs2;
                 }
@@ -608,7 +608,7 @@ bool JSONPushParser::onData(boost::string_view data, bool eod)
                 // TODO: this is an error
                 break;
 
-            case ParsingMode::elementValue:
+            case ParsingMode::element_value:
                 previous = current;
                 // TODO: is this an error too?
                 break;
