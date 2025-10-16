@@ -2,13 +2,12 @@ ishikopath = envvar("ISHIKO_CPP_ROOT");
 import $(ishikopath)/text/include/Ishiko/Text.bkl;
 import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
 
-toolsets = gnu vs2022 vs2019 vs2017 vs2015;
+toolsets = gnu vs2022 vs2019 vs2017;
 
 gnu.makefile = ../gnumake/GNUmakefile;
 vs2022.solutionfile = ../vc17/IshikoJSON.sln;
 vs2019.solutionfile = ../vc16/IshikoJSON.sln;
 vs2017.solutionfile = ../vc15/IshikoJSON.sln;
-vs2015.solutionfile = ../vc14/IshikoJSON.sln;
 
 library IshikoJSON : IshikoText, Boost
 {
@@ -18,12 +17,13 @@ library IshikoJSON : IshikoText, Boost
 
     if ($(toolset) == gnu)
     {
-        cxx-compiler-options = "-std=c++11";
+        cxx-compiler-options = "-std=c++14";
         outputdir = ../../lib;
     }
 
     if ($(toolset) != gnu)
     {
+        cxx-compiler-options = "/utf-8";
         outputdir = ../../lib/$(arch);
     }
 
