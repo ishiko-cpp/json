@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="https://nuime.org/schema/core/1">
+  <name>json</name>
+  <targets>
+    <target>
+      <name>json-lib</name>
+      <labels>
+        <label>nuime:product</label>
+      </labels>
+      <build-dependencies>
+        <dependency>
+          <name>text</name>
+          <target-refs>
+            <target-ref>
+              <location>
+                <url>https://github.com/ishiko-cpp/text/build-files/nuime/text.nuime</url>
+              </location>
+              <name>text-lib</name>
+            </target-ref>
+          </target-refs>
+        </dependency>
+      </build-dependencies>
+      <properties>
+        <property name="nuime:test-suite">
+          <target-ref>
+            <location>
+              <url>https://github.com/ishiko-cpp/json/tests/build-files/nuime/json-tests.nuime</url>
+            </location>
+            <name>json-tests</name>
+          </target-ref>
+        </property>
+      </properties>
+    </target>
+  </targets>
+  <subprojects>
+    <subproject>
+      <name>json-tests</name>
+      <labels>
+        <label>nuime:tests</label>
+      </labels>
+      <location>
+        <url>https://github.com/ishiko-cpp/json/tests/build-files/nuime/json-tests.nuime</url>
+      </location>
+    </subproject>
+  </subprojects>
+</project>
