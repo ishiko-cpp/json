@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="https://nuime.org/schema/core/1">
-  <name>json</name>
+  <name>IshikoJSON</name>
   <targets>
     <target>
-      <name>json-lib</name>
+      <name>lib</name>
       <labels>
         <label>nuime:product</label>
       </labels>
       <build-dependencies>
         <dependency>
-          <name>text</name>
+          <name>IshikoText</name>
           <target-refs>
             <target-ref>
               <location>
-                <url>https://github.com/ishiko-cpp/text/build-files/nuime/text.nuime</url>
+                <url>https://github.com/ishiko-cpp/text/build-files/nuime/IshikoText.nuime</url>
               </location>
-              <name>text-lib</name>
+              <name>lib</name>
             </target-ref>
           </target-refs>
         </dependency>
@@ -24,9 +24,9 @@
         <property name="nuime:test-suite">
           <target-ref>
             <location>
-              <url>https://github.com/ishiko-cpp/json/tests/build-files/nuime/json-tests.nuime</url>
+              <url>https://github.com/ishiko-cpp/json/tests/build-files/nuime/IshikoJSONTests.nuime</url>
             </location>
-            <name>json-tests</name>
+            <name>tests</name>
           </target-ref>
         </property>
       </properties>
@@ -34,12 +34,12 @@
   </targets>
   <subprojects>
     <subproject>
-      <name>json-tests</name>
+      <name>IshikoJSONTests</name>
       <labels>
         <label>nuime:tests</label>
       </labels>
       <location>
-        <url>https://github.com/ishiko-cpp/json/tests/build-files/nuime/json-tests.nuime</url>
+        <url>https://github.com/ishiko-cpp/json/tests/build-files/nuime/IshikoJSONTests.nuime</url>
       </location>
     </subproject>
   </subprojects>
